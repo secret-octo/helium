@@ -1,4 +1,4 @@
-secretfile filter=git-crypt diff=git-crypt
+~/.secret-git filter=git-crypt diff=git-crypt
 engine/src/*.coffee filter=git-crypt diff=git-crypt
 
 
