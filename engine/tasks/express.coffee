@@ -22,8 +22,8 @@ module.exports = expressTask = ->
     bare: no
     route: on
     port: 3001
-    views: path.join __dirname,"../etc/views/"
-    pub: path.join __dirname, "../etc/public" 
+    views: path.join __dirname,"../../client/views/"
+    pub: path.join __dirname, "../../client/public/" 
   }
 
   app.get "/", routes.index
