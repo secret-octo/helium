@@ -2,11 +2,14 @@ path = require "path"
 http = require "http"
 
 gulp = require "gulp"
-server = require "../../express"
+server = require "../express"
 
 getConfig = (cfg) -> require "../configs/#{cfg}"
 glob = getConfig("globs")
 
+VIEWS = path.join __dirname,"../client/views/"
+PUB = path.join __dirname, "../client/public/" 
+PORT = 3001
 routes = {}
 
 routes.index = (req, res) ->
@@ -21,9 +24,9 @@ module.exports = expressTask = ->
   app = server {
     bare: no
     route: on
-    port: 3001
-    views: path.join __dirname,"../../client/views/"
-    pub: path.join __dirname, "../../client/public/" 
+    port: PORT
+    views: VIEWS
+    pub: PUB
   }
 
   app.get "/", routes.index
