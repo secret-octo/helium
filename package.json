@@ -24,7 +24,10 @@
     "gulp-stylus": "0.0.7",
     "gulp-coffeelint": "0.0.2",
     "gulp-exec": "~1.0.3",
-    "gulp-plumber": "~0.4.1"
+    "gulp-plumber": "~0.4.1",
+    "tiny-lr": "0.0.5",
+    "gulp-livereload": "~0.1.1",
+    "connect-livereload": "~0.3.2"
   },
   "dependencies": {
     "express": "~3.4.7",

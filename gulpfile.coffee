@@ -17,7 +17,7 @@ gulp.task "pub:watch"   , task.pub.watch
 gulp.task "pub:serve"   , task.pub.server
 
 gulp.task "eng", ["eng:watch"]
-gulp.task "pub", ["pub:watch"]
+gulp.task "pub", ["pub:watch", "pub:serve"]
 
 gulp.task "default", ["eng", "pub"]
 

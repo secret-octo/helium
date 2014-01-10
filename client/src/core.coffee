@@ -11,7 +11,9 @@
   * main function. The one to be run at the end of the script.
   */
 `
+#console.log 'QQQQ'
 main = ->
+
   p = new Parallel()
   p.spawn handEval
   p.then (data) ->
@@ -468,5 +470,5 @@ do ->
 # ------------------------------------------------- #
 
 main()
-  
+#console.log 'AAAAAA' 
 

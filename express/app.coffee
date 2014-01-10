@@ -1,12 +1,16 @@
-
-###
-Module dependencies.
-###
 express = require("express")
 routes = require("./routes")
 user = require("./routes/user")
 http = require("http")
 path = require("path")
+
+addLR = (glob) ->
+  glob.port = glob.port || 35729
+  lrSnippet = "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':#{glob.port}/livereload.js\"></' + 'script>')</script>"
+  console.log lrSnippet
+  return (req, res, next) ->
+    res.locals.LR_SCRIPT =  lrSnippet
+    next()
 
 module.exports = (CFG)->
   app = express()
@@ -29,6 +33,9 @@ module.exports = (CFG)->
   app.set "port", CFG.port
   app.set "views", CFG.views
   app.set "view engine", "jade"
+
+  app.use addLR CFG.lr
+  
   app.use express.favicon()
   app.use express.logger("dev")
   app.use express.json()

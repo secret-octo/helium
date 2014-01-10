@@ -5,6 +5,7 @@
 /dist
 /secure
 /etc
+**/build/**
 
 # NodeJS #
 ##########
