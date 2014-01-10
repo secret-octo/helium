@@ -11,6 +11,7 @@ path = require("path")
 module.exports = (CFG)->
   app = express()
   CFG = CFG or {}
+  app.env = app.env or {}
 
   if CFG.bare is yes
     return app
@@ -19,10 +20,11 @@ module.exports = (CFG)->
     app.get "/", routes.index
     app.get "/users", user.list
     
-  CFG.port = CFG.port or process.env.PORT or 3000
-  CFG.views = CFG.views or path.join __dirname, "views"
-  CFG.pub = CFG.pub or path.join __dirname, "public"
+  app.env.port = CFG.port = CFG.port or process.env.PORT or 3000
+  app.env.views = CFG.views = CFG.views or path.join __dirname, "views"
+  app.env.pub = CFG.pub = CFG.pub or path.join __dirname, "public"
 
+  #console.log CFG
   # all environments
   app.set "port", CFG.port
   app.set "views", CFG.views
@@ -37,4 +39,5 @@ module.exports = (CFG)->
 
   # development only
   app.use express.errorHandler()  if "development" is app.get("env")
+
 
