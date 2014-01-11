@@ -10,6 +10,7 @@ task = {
 }
 
 gulp.task "eng:compile" , task.eng.compile
+gulp.task "eng:pack"    , task.eng.pack
 gulp.task "eng:watch"   , task.eng.watch
 
 gulp.task "pub:compile" , task.pub.compile
