@@ -18,11 +18,13 @@
     "connect-livereload": "~0.3.2",
     "style-loader": "~0.6.0",
     "css-loader": "~0.6.6",
-    "webpack": "~1.0.0-beta6"
+    "webpack": "~1.0.0-beta6",
+    "event-stream": "~3.1.0"
   },
   "dependencies": {
     "express": "~3.4.7",
     "paralleljs": "git://github.com/secret-octo/parallel.js#master",
+    "LLJS": "git://github.com/secret-octo/LLJS#master",
     "coffee-script": "~1.6.3",
     "gulp-util": "~2.2.9",
     "gulp": "~3.3.0",

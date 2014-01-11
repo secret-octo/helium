@@ -1,5 +1,4 @@
 path = require("path");
-console.log(__dirname)
 module.exports = {
   entry: path.join(__dirname, "../build/main.js"),
   output: {
