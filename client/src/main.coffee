@@ -1,0 +1,3 @@
+eng = require "engine"
+
+eng()

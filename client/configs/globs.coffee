@@ -8,6 +8,9 @@ D1 = path.join __dirname, "../build"
 LR_PORT = 35729
 
 module.exports = glob = {
+  webpack : {
+    src: ["#{D1}/**/*"]
+  }
   coffee: {
     src: ["#{D0}/**/*.coffee"]
     dest: "#{D1}"     

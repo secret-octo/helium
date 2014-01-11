@@ -24,7 +24,7 @@ module.exports = task = {}
 
 task.compile = ["_eng:coffee"]
 task.pack = ["_eng:pack"]
-task.watch = ["_eng:coffee", "_eng:watch"]
+task.watch = ["_eng:pack", "_eng:watch"]
 
 # task.compile = ["eng:coffee"]
 # task.watch = _flatten [task.compile, "eng:coffee:watch"]
