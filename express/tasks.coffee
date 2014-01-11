@@ -2,12 +2,13 @@ path = require "path"
 http = require "http"
 
 gulp = require "gulp"
-server = require "./app" 
+gutil = require "gulp-util"
+server = require "./index" 
 
 module.exports = (opt) ->
-  server = server opt
-  return (fn) ->
-    fn = fn.call server
+  s = server.create opt
+  (fn) ->
+    fn = fn.call s
     ->
       http.createServer(fn).listen fn.get("port"), ->
-        console.log "Express server listening on port #{fn.get("port")}"
+        gutil.log "Express server listening on port #{fn.get("port")}"

@@ -1,4 +1,4 @@
-_flatten = require "lodash-node/modern/arrays/flatten"
+_flat = require "lodash-node/modern/arrays/flatten"
 
 gulp = require "gulp"
 
@@ -34,11 +34,13 @@ gulp.task "pub:lr", tasks.lr globs.lr
 module.exports = task = {}
 
 task.compile = ["pub:coffee", "pub:stylus", "pub:jade"]
-task.watch = _flatten ["pub:lr", task.compile, "pub:coffee:watch", "pub:stylus:watch", "pub:jade:watch"]
+task.watch = _flat ["pub:lr", task.compile, "pub:coffee:watch", "pub:stylus:watch", "pub:jade:watch"]
 
 #console.log middleware, globs.lr
 task.server = server ->
   @get "/", routes.index
   @get "/users", routes.users
+
+
   #@use middleware.addLR
 
