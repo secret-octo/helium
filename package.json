@@ -19,7 +19,8 @@
     "style-loader": "~0.6.0",
     "css-loader": "~0.6.6",
     "webpack": "~1.0.0-beta6",
-    "event-stream": "~3.1.0"
+    "event-stream": "~3.1.0",
+    "gulp-clean": "~0.2.2"
   },
   "dependencies": {
     "express": "~3.4.7",
