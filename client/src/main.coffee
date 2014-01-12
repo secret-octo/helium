@@ -1,3 +1,0 @@
-eng = require "engine"
-
-eng()

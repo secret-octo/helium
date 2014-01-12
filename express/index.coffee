@@ -44,6 +44,11 @@ module.exports =
       app.get "/", routes.index
       app.get "/users", user.list
 
+    if Object.keys(CFG.routes).length > 0
+      for r, fn of CFG.routes
+        console.log 'rrrttt', r, typeof fn
+        app.get r, fn
+
     # development only
     app.use express.errorHandler()  if "development" is app.get("env")
 

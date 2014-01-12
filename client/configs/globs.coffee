@@ -1,4 +1,3 @@
-_flatten = require 'lodash-node/modern/arrays/flatten'
 path = require "path"
 
 ##
@@ -8,28 +7,26 @@ D1 = path.join __dirname, "../build"
 LR_PORT = 35729
 
 module.exports = glob = {
-  webpack : {
-    src: ["#{D1}/**/*"]
-  }
   coffee: {
     src: ["#{D0}/**/*.coffee"]
-    dest: "#{D1}"     
+    dest: "#{D1}"
     lr: LR_PORT
+    plugin: -> require("gulp-coffee")({bare: on})
   }
   stylus: {
     src: ["#{D0}/**/*.styl"]
     dest: "#{D1}"  
     lr: LR_PORT
+    plugin: -> require("gulp-stylus")()
   }
   jade: {
     src: ["#{D0}/**/*.jade"]
     dest: "#{D1}"     
     lr: LR_PORT
+    plugin: -> require("gulp-jade")()
   }
   lr: {
     port: LR_PORT
   }
-
 }
 
-# globs["watch:assets"] = _flatten [globs.src.coffee, globs.src.jade, globs.src.stylus]

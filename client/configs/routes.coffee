@@ -1,11 +1,11 @@
 module.exports = routes = {}
 
-routes.index = (req, res) ->
+routes['/'] = (req, res) ->
   res.render "index", {
     title: "Express @"
   }
 
-routes.users = (req, res) ->
+routes['/users'] = (req, res) ->
   res.send "respond with a resource"
 
 
