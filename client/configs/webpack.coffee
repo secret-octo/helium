@@ -1,5 +1,5 @@
 path = require("path")
-conf = require("../../etc/configs/webpack")
+conf = require("../../configs/webpack")
 glob = require("./globs").webpack
 
 conf.entry = glob.entry

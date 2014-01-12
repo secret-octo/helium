@@ -48,7 +48,7 @@ module.exports = glob = {
   webpack: {
     watch: {
       src: ["#{D2}/**/*.js", "#{D1}/**/*.js"]
-      plugin: -> require("../../etc/pack-plugin")(packConfig)
+      plugin: -> require("../../configs/pack-plugin")(packConfig)
     }
     entry: "#{D1}/index.js"
     output: {
@@ -57,6 +57,6 @@ module.exports = glob = {
   }
 }
 
-packConfig = require("../../etc/configs/webpack")
+packConfig = require("../../configs/webpack")
 packConfig.entry = glob.webpack.entry
 packConfig.output = glob.webpack.output
