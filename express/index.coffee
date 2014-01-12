@@ -46,7 +46,6 @@ module.exports =
 
     if Object.keys(CFG.routes).length > 0
       for r, fn of CFG.routes
-        console.log 'rrrttt', r, typeof fn
         app.get r, fn
 
     # development only

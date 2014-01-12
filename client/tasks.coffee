@@ -6,7 +6,7 @@ gulp = require "gulp"
 
 globs = require "./configs/globs"
 tasks = require "../etc/tasks"
-packConfig = require(path.join(__dirname, "./configs/webpack.js"))
+packConfig = require(path.join(__dirname, "./configs/webpack"))
 
 routes = require "./configs/routes"
 
@@ -23,23 +23,32 @@ server = tasks.createServer {
 
 gulp.task "_pub:express", server
 gulp.task "_pub:lr", tasks.lr globs.lr
+gulp.task "_pub:pack", tasks.webpack packConfig
 
 gulp.task "_pub:coffee", tasks.create globs.coffee
 gulp.task "_pub:stylus", tasks.create globs.stylus
 gulp.task "_pub:jade", tasks.create globs.jade
 
+gulp.task "_pub:watch:coffee", tasks.watch globs.coffee
+gulp.task "_pub:watch:stylus", tasks.watch globs.stylus
+gulp.task "_pub:watch:jade", tasks.watch globs.jade
 
-gulp.task "_pub:watch:coffee", tasks.watch globs.coffee, "_pub:coffee"
-gulp.task "_pub:watch:stylus", tasks.watch globs.stylus, "_pub:stylus"
-gulp.task "_pub:watch:jade", tasks.watch globs.jade, "_pub:jade"
+gulp.task "_pub:watch:bundle", tasks.watch globs.bundle
+#gulp.task "_pub:watch:css", tasks.watch globs.css
+#gulp.task "_pub:watch:html", task.watch globs.html
+
+
+gulp.task "_pub:watch:pack", tasks.watch globs.webpack.watch
 
 module.exports = task = {}
 
 task.compile = ["_pub:coffee", "_pub:stylus"]
-task.pack = _flatten [task.compile, "_pub:pack"]
-task.watch = _flatten [task.compile, "_pub:watch:coffee", "_pub:watch:stylus", "_pub:watch:jade"]
+task.pack = _flatten [task.compile, "_pub:pack", "_pub:watch:pack"]
+task.watch = _flatten ["_pub:watch:coffee", "_pub:watch:stylus", "_pub:watch:jade"]
 
-task.serve = _flatten [task.watch, "_pub:express"]
+task.reload = 
+
+task.serve = _flatten [task.compile, "_pub:watch:bundle", task.watch, "_pub:express"]
 task.lr = _flatten ["_pub:lr", task.serve]
 
 

@@ -20,8 +20,10 @@ task = {
 
 gulp.task "eng", task.eng.watch
 gulp.task "pub", task.pub.watch
+
 gulp.task "pub:serve", task.pub.serve
 gulp.task "pub:lr", task.pub.lr
+gulp.task "pub:pack", task.pub.pack
 
-gulp.task "default", ["eng", "pub:lr"]
+gulp.task "default", ["eng", "pub:lr"], -> gulp.run "pub:pack"
 

@@ -1,12 +1,29 @@
 path = require "path"
+gutil = require "gulp-util"
 
+reload = require "gulp-livereload"
 ##
 # directory offsets
 D0 = path.join __dirname, "../src"
 D1 = path.join __dirname, "../build"
+D2 = path.join __dirname, "../../engine/build"
 LR_PORT = 35729
 
 module.exports = glob = {
+  bundle: {
+    src: [
+      "#{D2}/**/*.js"
+      "#{D1}/**/*.js"
+      "#{D1}/**/*.css"
+      "#{D1}/**/*.html"
+    ]
+    lr: LR_PORT
+    plugin: (lrServer) -> reload lrServer
+  }  
+  # css: {
+  #   src: ["#{D1}/**/*.css"]
+  #   lr: LR_PORT
+  # }
   coffee: {
     src: ["#{D0}/**/*.coffee"]
     dest: "#{D1}"
@@ -28,5 +45,18 @@ module.exports = glob = {
   lr: {
     port: LR_PORT
   }
+  webpack: {
+    watch: {
+      src: ["#{D2}/**/*.js", "#{D1}/**/*.js"]
+      plugin: -> require("../../etc/pack-plugin")(packConfig)
+    }
+    entry: "#{D1}/index.js"
+    output: {
+      filename: "#{D1}/bundle.js"
+    }
+  }
 }
 
+packConfig = require("../../etc/configs/webpack")
+packConfig.entry = glob.webpack.entry
+packConfig.output = glob.webpack.output
