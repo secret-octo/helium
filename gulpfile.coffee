@@ -1,29 +1,36 @@
-path = require "path"
-http = require "http"
-_flatten = require "lodash-node/modern/arrays/flatten"
-
 gulp = require "gulp"
-gutil = require "gulp-util"
+task = require "./task"
 
-task = {
-  eng: require "./engine/tasks"
-  pub: require "./client/tasks"
-}
+path = require "path"
+Parallel = require "paralleljs"
 
-# gulp.task "eng:compile" , task.eng.compile
-# gulp.task "eng:pack"    , task.eng.pack
-# gulp.task "eng:watch"   , 
+cfg =
+  name: "default"
+  src: [
+    "#{__dirname}/task.coffee"
+    "#{__dirname}/{client,engine,etc}/task.coffee"
+  ]
 
-# gulp.task "pub:compile" , task.pub.compile
-# gulp.task "pub:watch"   , 
-# gulp.task "pub:serve"   , 
+# gulp.task "pub:build", task.pub.build
 
-gulp.task "eng", task.eng.watch
-gulp.task "pub", task.pub.watch
+gulpfiles = [
+  path.join __dirname, './task.coffee'
+  path.join __dirname, './etc/task.coffee'
+  path.join __dirname, './engine/task.coffee'
+  path.join __dirname, './client/task.coffee'
+]
 
-gulp.task "pub:serve", task.pub.serve
-gulp.task "pub:lr", task.pub.lr
-gulp.task "pub:pack", task.pub.pack
 
-gulp.task "default", ["eng", "pub:lr"], -> gulp.run "pub:pack"
 
+# gulp.task "forever", ->
+#   task.etc.parallel {src: gulpfiles}, (file, cb) ->
+#     console.log "forever:task"
+#     @on "end", -> console.log "end: should re-start again"
+
+gulp.task "build", task.pub.build
+
+gulp.task "default", task.default
+# gulp.task "default", ->
+#   task.etc.express()
+#   task.pub.build()
+#   task.default()

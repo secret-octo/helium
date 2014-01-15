@@ -4,8 +4,11 @@ user = require("./routes/user")
 http = require("http")
 path = require("path")
 
+_isArray = require "lodash-node/modern/objects/isArray"
+
 addLR = (CFG) ->
-  CFG.port = CFG.port || 35729
+  CFG = CFG or {}
+  CFG.port = CFG.port or 35729
   lrSnippet = "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':#{CFG.port}/livereload.js\"></' + 'script>')</script>"
   return (req, res, next) ->
     res.locals.LR_SCRIPT =  lrSnippet
@@ -15,6 +18,7 @@ module.exports =
   create : (CFG)->
     app = express() or {}
     CFG = CFG or {}
+
 
     if CFG.bare is yes
       return app
@@ -26,6 +30,7 @@ module.exports =
     app.env.pub = CFG.pub = CFG.pub or path.join __dirname, "public"
 
     # all environments
+
     app.set "port", CFG.port
     app.set "views", CFG.views
     app.set "view engine", "jade"
@@ -44,7 +49,7 @@ module.exports =
       app.get "/", routes.index
       app.get "/users", user.list
 
-    if Object.keys(CFG.routes).length > 0
+    if _isArray(CFG.routes) and Object.keys(CFG.routes).length > 0
       for r, fn of CFG.routes
         app.get r, fn
 

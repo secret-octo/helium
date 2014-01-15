@@ -1,0 +1,36 @@
+path = require "path"
+cluster = require "cluster"
+
+gulp = require "gulp"
+gutil = require "gulp-util"
+
+globs =
+  src: ["#{__dirname}/task.coffee"]
+
+gulpFiles = [
+  path.join __dirname, './etc/build-task.coffee'
+  path.join __dirname, './task.coffee'
+  path.join __dirname, './etc/task.coffee'
+  path.join __dirname, './engine/task.coffee'
+  path.join __dirname, './client/task.coffee'
+
+]
+
+exports = module.exports = do ->
+  #console.log 'original task re-required'
+  {
+    pub: require("./client/task")
+    etc: require("./etc/task")
+    build: (cfg) ->
+      exports.etc.express()
+      exports.pub.build()
+    fork: (cfg)->
+      exports.etc.parallel {src:gulpFiles, name: "build"}, gulpFiles[0]
+    default: ->
+
+      exports.fork()
+    #task.watcher(globs.src)
+  }
+  
+  
+
