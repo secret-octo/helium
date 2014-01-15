@@ -17,8 +17,6 @@ globs =
     src: ["#{__dirname}/src/**/*.styl"]
     dest: "#{__dirname}/build"
 
-
-sc = path.join __dirname, "../run"
 exports = module.exports = 
   coffee: -> task.watcher globs.coffee, coffee(bare: on)
   stylus: -> task.watcher globs.stylus, stylus()

@@ -26,11 +26,7 @@ evt = new Evt({
   delimiter: ':'
 })
 
-#cfg = require "../etc/config"
-#task = require "../etc/task"
-
 puts = gutil.log
-
 
 path = require "path"
 parallel = require "paralleljs"
@@ -43,15 +39,13 @@ serverFiles = [
   path.join __dirname, "./express/task.coffee"
   path.join __dirname, "./express/index.coffee"
 ]
+
 etcDir = __dirname
 pidDir = path.join __dirname, "./pids"
 
 fs = require "fs"
 mkdir = require "mkdirp"
 rm = require "rimraf"
-# Writable = require("stream").Writable
-
-# console.log 'uuuu', Writable
 
 exports = module.exports = 
   pipeline: (tasks) -> gutil.combine.apply(gutil, tasks)()
@@ -113,9 +107,9 @@ exports = module.exports =
         #
         f = path.join(pidDir, "#{pid}")
         mkdir pidDir, (err) ->
-          console.log "EE: making dir: #{err}" if err
+          console.log "EE(boot): making dir: #{err}" if err
           fs.writeFile f, pid, (err) ->
-            console.log "EE: making file #{err}" if err
+            console.log "EE(boot): making file #{err}" if err
 
         cache.pids.push pid
         gutil.log "#{gutil.colors.cyan(cfg.name)} is #{gutil.colors.bold('creating')} a process (pid: #{gutil.colors.magenta(pid)})"
@@ -127,7 +121,7 @@ exports = module.exports =
       # into cache.pids
       #
       fs.readdir pidDir, (err, files) ->
-        console.log "EE: reading dir: #{err}" if err
+        console.log "EE(reload): reading dir: #{err}" if err
         cache.pids = _flatten [files, cache.pids]
 
         if cache.pids.length is 0
@@ -137,14 +131,14 @@ exports = module.exports =
           try
             process.kill(pid, "SIGTERM")
           catch e
-            console.log "EE: couldn't kill process pid: #{pid}"
+            console.log "EE(reload): couldn't kill process pid: #{pid}"
           finally
             #
             # must delete pid file here
             #
             try 
               rm path.join(pidDir, pid), (err) ->
-                console.log "EE: deleting pid file: #{err}" if err
+                console.log "EE(reload): deleting pid file: #{err}" if err
             catch e 
 
         cache.pids = []
@@ -155,7 +149,9 @@ exports = module.exports =
 
     ##
     # init parallel job
-    reload()
+    mkdir pidDir, (err) -> 
+      console.log "EE(mkdir): creating dir: #{err}" if err
+      reload()
 
     len = cfg.src.length
     counter = 0
@@ -171,7 +167,7 @@ exports = module.exports =
 
   express: (cfg)-> 
     cfg = cfg or {
-      src:serverFiles
+      src: serverFiles
       name:"express"
       dest: path.join(etcDir, "./pids")
     }

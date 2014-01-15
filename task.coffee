@@ -16,21 +16,16 @@ gulpFiles = [
 
 ]
 
-exports = module.exports = do ->
-  #console.log 'original task re-required'
-  {
-    pub: require("./client/task")
-    etc: require("./etc/task")
-    build: (cfg) ->
-      exports.etc.express()
-      exports.pub.build()
-    fork: (cfg)->
-      exports.etc.parallel {src:gulpFiles, name: "build"}, gulpFiles[0]
-    default: ->
+exports = module.exports = 
+  pub: require("./client/task")
+  etc: require("./etc/task")
+  build: (cfg) ->
+    exports.etc.express()
+    exports.pub.build()
+  fork: (cfg)->
+    exports.etc.parallel {src:gulpFiles, name: "build"}, gulpFiles[0]
+  default: ->
+    exports.fork()
 
-      exports.fork()
-    #task.watcher(globs.src)
-  }
-  
   
 
