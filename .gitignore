@@ -65,6 +65,8 @@ Thumbs.db
 **/tmp*
 *-tmp*
 
+**/build
+
 **/.sass-cache
 **/bower_components
 
