@@ -88,7 +88,7 @@ exports = module.exports =
       cfg.taskFile = taskFile
       parallel.create(cfg)
         .spawn (cfg) ->
-          require "coffee-script"
+          require "coffee-script/register"
           http = require "http"
           gutil = require "gulp-util"
           task = require cfg.taskFile 
