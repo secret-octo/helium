@@ -10,6 +10,9 @@ _isArray = require "lodash-node/modern/objects/isArray"
 
 cfg = {}
 cfg.port = 3001
+cfg.views = path.join __dirname, '../../client/src/views'
+cfg.public = path.join __dirname, '../../client/build'
+
 module.exports = -> 
   s = require("./index").create cfg
   http.createServer(s).listen s.get("port"), ->

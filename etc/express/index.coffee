@@ -3,6 +3,7 @@ routes = require("./routes")
 user = require("./routes/user")
 http = require("http")
 path = require("path")
+gulp = require "gulp"
 
 _isArray = require "lodash-node/modern/objects/isArray"
 
@@ -10,6 +11,7 @@ addLR = (CFG) ->
   CFG = CFG or {}
   CFG.port = CFG.port or 35729
   lrSnippet = "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':#{CFG.port}/livereload.js\"></' + 'script>')</script>"
+
   return (req, res, next) ->
     res.locals.LR_SCRIPT =  lrSnippet
     next()

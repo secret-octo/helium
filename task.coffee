@@ -19,6 +19,11 @@ gulpFiles = [
 exports = module.exports = 
   pub: require("./client/task")
   etc: require("./etc/task")
+  lr: ->
+    lr = require("tiny-lr")()
+    lr.listen 35729
+
+    console.log 'LR server up'
   build: (cfg) ->
     exports.etc.express()
     exports.pub.build()
@@ -26,6 +31,7 @@ exports = module.exports =
     exports.etc.parallel {src:gulpFiles, name: "build"}, gulpFiles[0]
   default: ->
     exports.fork()
+    exports.lr()
 
   
 
